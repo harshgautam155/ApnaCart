@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --font-poppins: "Poppins", sans-serif;
+  --font-fredoka: "Fredoka", sans-serif;
+};
+:root{
+    --primaryColor1:#D85A30;
+    --primaryColor2:#EA580C;
+
+    --primaryColor3:#2563EB;
+    --primaryColor4:#1D4ED8;
+
+    --background:#F9FAFB;
+    --text:#111827;
+    --secondarytext:#6B7280;
+    --success:#16A34A;
+    --danger:#DC2626;
+    --border:#E5E7EB;
+}
