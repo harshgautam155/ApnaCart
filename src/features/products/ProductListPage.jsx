@@ -13,7 +13,7 @@ function ProductListPage() {
   const keyword = searchParams.get("keyword");
 
   const { products, status, error } = useSelector((state) => state.products);
-
+  console.log("Products:", products); 
   useEffect(() => {
     dispatch(fetchProducts({ category, keyword }));
   }, [dispatch, category, keyword]);

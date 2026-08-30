@@ -60,7 +60,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.products = action.payload.products || action.payload;
+        state.products = action.payload.data || action.payload;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = "failed";
@@ -74,7 +74,8 @@ const productSlice = createSlice({
       })
       .addCase(fetchProductDetails.fulfilled, (state, action) => {
         state.detailsStatus = "succeeded";
-        state.product = action.payload.product || action.payload;
+        state.product = action.payload.products
+         || action.payload;
       })
       .addCase(fetchProductDetails.rejected, (state, action) => {
         state.detailsStatus = "failed";

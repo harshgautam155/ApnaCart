@@ -9,15 +9,15 @@ import { calculateCartTotals } from "../utils/priceCalculation";
 
 export function useCart() {
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.cart.items);
+  const items = useSelector((state) => state.cart.items) || [];
 
-  const { itemsPrice, tax, shipping, total } = calculateCartTotals(items);
+  const { itemPrice, tax, shipping, total } = calculateCartTotals(items);
 
   const totalQty = items.reduce((acc, item) => acc + item.qty, 0);
 
   return {
     items,
-    itemsPrice,
+    itemPrice,
     tax,
     shipping,
     total,
