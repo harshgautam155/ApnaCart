@@ -7,6 +7,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { useCart } from "../../hooks/useCart";
 import ReviewForm from "./ReviewForm";
 import Loader from "../../components/common/Loader";
+import ErrorMessage from "../../components/common/ErrorMessage";
 
 function ProductDetailsPage() {
   const { id } = useParams();

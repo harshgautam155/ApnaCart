@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import bg from "../../assets/landing-bg.png";
 const categories = [
   { name: "Electronics", emoji: "🔌" },
   { name: "Fashion", emoji: "👕" },
@@ -15,7 +16,7 @@ function HomePage() {
   return (
     <div style={{ backgroundColor: "#FDF1EC" }} className="text-[#1B2340]">
       {/* ---------- HERO ---------- */}
-      <section className="relative overflow-hidden px-6 pt-20 pb-24 md:pt-28 md:pb-32">
+      <section style={{ backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url(${bg})` }} className="bg-cover bg-center bg-no-repeat relative overflow-hidden px-6 pt-20 pb-24 md:pt-28 md:pb-32">
         <div className="relative max-w-3xl mx-auto text-center">
           <p
             className="text-sm tracking-[0.3em] uppercase mb-4 font-medium"

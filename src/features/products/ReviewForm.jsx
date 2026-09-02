@@ -43,7 +43,7 @@ function ReviewForm({ productId, onReviewAdded }) {
         >
           {[5, 4, 3, 2, 1].map((n) => (
             <option key={n} value={n}>
-              {n} — {"★".repeat(n)}
+              {"★".repeat(n)}
             </option>
           ))}
         </select>

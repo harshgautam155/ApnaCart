@@ -29,7 +29,7 @@ function ProductListPage() {
 
       {status === "loading" && <Loader fullScreen={false} />}
 
-      {status === "failed" && toast.error(error || "Failed to fetch products")}
+      {status === "failed" && <ErrorMessage message={error} />}
 
       {status === "succeeded" && products.length === 0 && (
         <p className="text-center opacity-60 py-20">
