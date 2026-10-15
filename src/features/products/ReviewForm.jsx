@@ -31,7 +31,8 @@ function ReviewForm({ productId, onReviewAdded }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3 border-t border-[#1B2340]/10 pt-6 mt-6">
+    submitting && (
+      <form onSubmit={handleSubmit} className="space-y-3 border-t border-[#1B2340]/10 pt-6 mt-6">
       <h3 className="font-semibold">Write a review</h3>
 
       <div>
@@ -68,6 +69,8 @@ function ReviewForm({ productId, onReviewAdded }) {
         {submitting ? "Submitting..." : "Submit review"}
       </button>
     </form>
+    )
+    
   );
 }
 

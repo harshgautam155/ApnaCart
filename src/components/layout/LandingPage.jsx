@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import bg from "../../assets/landing-bg.png";
+import { FaShoppingBag} from "react-icons/fa";
+import{LuPlug, LuShirt, LuHouse, LuSparkles, LuDumbbell, LuBookOpen} from "react-icons/lu";
 const categories = [
-  { name: "Electronics", emoji: "🔌" },
-  { name: "Fashion", emoji: "👕" },
-  { name: "Home & Living", emoji: "🏠" },
-  { name: "Beauty", emoji: "💄" },
-  { name: "Sports", emoji: "🏏" },
-  { name: "Books", emoji: "📚" },
+  { name: "Electronics", icon: LuPlug },
+  { name: "Fashion", icon: LuShirt },
+  { name: "Home & Living", icon: LuHouse },
+  { name: "Beauty", icon: LuSparkles },
+  { name: "Sports", icon: LuDumbbell },
+  { name: "Books", icon: LuBookOpen },
 ];
 
 function HomePage() {
@@ -15,7 +17,7 @@ function HomePage() {
 
   return (
     <div style={{ backgroundColor: "#FDF1EC" }} className="text-[#1B2340]">
-      {/* ---------- HERO ---------- */}
+      {/* HERO */}
       <section style={{ backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url(${bg})` }} className="bg-cover bg-center bg-no-repeat relative overflow-hidden px-6 pt-20 pb-24 md:pt-28 md:pb-32">
         <div className="relative max-w-3xl mx-auto text-center">
           <p
@@ -56,16 +58,13 @@ function HomePage() {
                 "polygon(0% 0%, calc(100% - 24px) 0%, 100% 50%, calc(100% - 24px) 100%, 0% 100%)",
             }}
           >
-            <span
-              className="w-2.5 h-2.5 rounded-full"
-              style={{ backgroundColor: "#FDF1EC" }}
-            />
+            <FaShoppingBag className="text-2xl"/>
             Start Shopping
           </Link>
         </div>
       </section>
 
-      {/* ---------- TRUST STRIP ---------- */}
+      {/* TRUST STRIP  */}
       <section className="border-y border-[#1B2340]/10 py-6 px-6">
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
@@ -82,7 +81,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ---------- CATEGORY STALLS ---------- */}
+      {/* CATEGORY  */}
       <section className="px-6 py-20 max-w-5xl mx-auto">
         <h2
           className="text-4xl mb-10 text-center"
@@ -93,19 +92,20 @@ function HomePage() {
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {categories.map((cat) => (
-            <Link
+              <Link
               key={cat.name}
               to={`/products?category=${encodeURIComponent(cat.name)}`}
               className="group p-6 rounded-lg border border-[#1B2340]/10 bg-white/50 transition-colors hover:border-[#D85A30]"
             >
-              <span className="text-3xl mb-3 block">{cat.emoji}</span>
+              <cat.icon className="text-4xl mb-4 transition-transform group-hover:scale-110" />
               <span className="font-medium">{cat.name}</span>
             </Link>
+            
           ))}
         </div>
       </section>
 
-      {/* ---------- FEATURED DEAL BANNER (dark navy, echoes your footer) ---------- */}
+      {/*FEATURED DEAL BANNER*/}
       <section className="px-6 pb-24 max-w-5xl mx-auto">
         <div
           className="rounded-lg p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-6"

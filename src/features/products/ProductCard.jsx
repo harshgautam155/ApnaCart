@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
-import { toast } from "react-toastify";
+import formatRupees from "../../utils/formateRupees";
+import { useState } from "react";
 
 function ProductCard({ product }) {
   const { addItem } = useCart();
+  const [quantity, setQuantity] = useState(0);
+  const isOutOfStock = product.countInStock === 0;
+  const isMaxQtyReached = quantity >= product.countInStock;
 
   const handleAddToCart = (e) => {
     e.preventDefault(); // stop the click from also triggering the wrapping Link
@@ -15,7 +19,7 @@ function ProductCard({ product }) {
       countInStock: product.countInStock,
       qty: 1,
     });
-    toast.success(`${product.name} added to cart`);
+    setQuantity(quantity + 1);
   };
 
   return (
@@ -23,12 +27,22 @@ function ProductCard({ product }) {
       to={`/products/${product._id}`}
       className="group block rounded-lg border border-[#1B2340]/10 bg-white/60 overflow-hidden hover:border-[#D85A30] transition-colors"
     >
-      <div className="aspect-square bg-[#1B2340]/5 overflow-hidden">
+      <div className="relative aspect-square bg-[#1B2340]/5 overflow-hidden">
         <img
           src={product.image}
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform"
         />
+        {product.numReviews > 0 && (
+          <div
+            className="absolute top-2 left-2 flex items-center gap-1 px-2 py-1 rounded text-xs font-medium"
+            style={{ backgroundColor: "#1B2340", color: "#FDF1EC" }}
+          >
+            <span style={{ color: "#E8A33D" }}>★</span>
+            <span>{product.rating?.toFixed(1)}</span>
+            <span className="opacity-60">({product.numReviews})</span>
+          </div>
+        )}
       </div>
 
       <div className="p-4">
@@ -42,15 +56,19 @@ function ProductCard({ product }) {
             className="font-semibold"
             style={{ fontFamily: "'JetBrains Mono', monospace" }}
           >
-            ₹{product.price}
+            {formatRupees(product.price)}
           </span>
           <button
             onClick={handleAddToCart}
-            disabled={product.countInStock === 0}
-            className="text-xs font-medium px-3 py-1.5 rounded disabled:opacity-40"
+            disabled={isOutOfStock || isMaxQtyReached}
+            className="text-xs font-medium px-3 py-1.5 rounded disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none"
             style={{ backgroundColor: "#D85A30", color: "#FDF1EC" }}
           >
-            {product.countInStock === 0 ? "Out of stock" : "Add"}
+            {isOutOfStock
+              ? "Out of stock"
+              : isMaxQtyReached
+                ? "Max limit"
+                : "Add"}
           </button>
         </div>
       </div>

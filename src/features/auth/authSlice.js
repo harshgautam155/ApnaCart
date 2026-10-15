@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { BiCheck } from "react-icons/bi";
 import {
   registerUser,
   verifyOtp,
@@ -10,7 +9,6 @@ import {
   updateUser,
   delelteUser,
 } from "../../api/authApi";
-import { act } from "react";
 
 export const register = createAsyncThunk(
   "auth/registerUser",
@@ -19,7 +17,7 @@ export const register = createAsyncThunk(
       const res = await registerUser(formData);
       return res.data;
     } catch (error) {
-      return thunkAPI.thunkAPI.rejectWithValue(
+      return thunkAPI.rejectWithValue(
         error.response?.data?.message || "Registration failed",
       );
     }
@@ -225,7 +223,7 @@ const authSlice = createSlice({
         })
 
         //update 
-        .addCase(update.fulfilled, (state) => {
+        .addCase(update.fulfilled, (state, action) => {
           state.user = action.payload;
         })
 

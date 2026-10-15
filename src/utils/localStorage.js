@@ -3,10 +3,10 @@ const CART_KEY = "apnacart_cart"
 export function loadCart(){
     try{
         const data = localStorage.getItem(CART_KEY);
-        return data? JSON.parse(data) : {item:[]}
+        return data? JSON.parse(data) : {items:[]}
     } catch(error){
         console.error("Failed to load cart from localStorage:", error)
-        return { item:[] };
+        return { items:[] };
     }
 }
 

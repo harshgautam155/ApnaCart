@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import formatRupees from "../../utils/formateRupees";
 import { fetchProductDetails, clearSelectedProduct } from "./productSlice";
 import { useAuth } from "../../hooks/useAuth";
 import { useCart } from "../../hooks/useCart";
 import ReviewForm from "./ReviewForm";
 import Loader from "../../components/common/Loader";
 import ErrorMessage from "../../components/common/ErrorMessage";
+import AddButton from "../../components/common/AddButton";
 
 function ProductDetailsPage() {
   const { id } = useParams();
@@ -15,8 +16,11 @@ function ProductDetailsPage() {
   const { isAuthenticated } = useAuth();
   const { addItem } = useCart();
   const [qty, setQty] = useState(1);
+  const [showDescription, setShowDescription] = useState(false);
 
-  const { product, detailsStatus, error } = useSelector((state) => state.products);
+  const { product, detailsStatus, error } = useSelector(
+    (state) => state.products,
+  );
 
   useEffect(() => {
     dispatch(fetchProductDetails(id));
@@ -32,9 +36,8 @@ function ProductDetailsPage() {
       countInStock: product.countInStock,
       qty,
     });
-    toast.success(`${product.name} added to cart`);
   };
-
+  console.log("Product details:", product); // Log the product details for debugging
   const refetchProduct = () => {
     dispatch(fetchProductDetails(id));
   };
@@ -65,14 +68,12 @@ function ProductDetailsPage() {
             {product.name}
           </h1>
 
-          <p className="opacity-70 mb-6">{product.description}</p>
-
-          <div className="flex items-center gap-4 mb-6">
+          <div className="mt-10 flex items-center gap-4 mb-6">
             <span
-              className="text-2xl font-semibold"
+              className=" text-2xl font-semibold"
               style={{ fontFamily: "'JetBrains Mono', monospace" }}
             >
-              ₹{product.price}
+              {formatRupees(product.price)}
             </span>
             <span className="text-sm opacity-60">
               {product.countInStock > 0
@@ -83,17 +84,11 @@ function ProductDetailsPage() {
 
           {product.countInStock > 0 && (
             <div className="flex items-center gap-3 mb-6">
-              <select
-                value={qty}
-                onChange={(e) => setQty(Number(e.target.value))}
-                className="border border-[#1B2340]/20 rounded px-3 py-2 bg-white"
-              >
-                {[...Array(product.countInStock).keys()].map((x) => (
-                  <option key={x + 1} value={x + 1}>
-                    {x + 1}
-                  </option>
-                ))}
-              </select>
+              <AddButton
+                item={{ qty: qty, countInStock: product.countInStock }}
+                onQtyChange={(newQty) => setQty(newQty)}
+                onRemove={() => setQty(0)} // or handle removing from cart / resetting qty
+              />
 
               <button
                 onClick={handleAddToCart}
@@ -113,9 +108,32 @@ function ProductDetailsPage() {
         </div>
       </div>
 
+      <div className="mb-6">
+        <button
+          onClick={() => setShowDescription((prev) => !prev)}
+          className="mt-10 flex items-center justify-between w-full text-left font-medium text-sm py-2 border-b border-[#1B2340]/10"
+        >
+          Description
+          <span
+            className="transition-transform"
+            style={{
+              transform: showDescription ? "rotate(180deg)" : "rotate(0deg)",
+            }}
+          >
+            ▼
+          </span>
+        </button>
+
+        {showDescription && (
+          <p className="opacity-70 text-sm pt-3">{product.description}</p>
+        )}
+      </div>
       {/* Reviews */}
       <div className="mt-12 max-w-2xl">
-        <h2 className="text-2xl mb-4" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+        <h2
+          className="text-2xl mb-4"
+          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+        >
           Reviews
         </h2>
 
@@ -136,9 +154,7 @@ function ProductDetailsPage() {
         {isAuthenticated ? (
           <ReviewForm productId={product._id} onReviewAdded={refetchProduct} />
         ) : (
-          <p className="text-sm opacity-60 mt-6">
-            Log in to write a review.
-          </p>
+          <p className="text-sm opacity-60 mt-6">Log in to write a review.</p>
         )}
       </div>
     </div>

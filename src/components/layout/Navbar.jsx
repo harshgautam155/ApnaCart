@@ -1,10 +1,8 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import Input from "../../components/common/Input";
 import { useAuth } from "../../hooks/useAuth";
-import ShoppingCartIcon from "./ShoppingCartIcon";
-import ProfileIcon from "./ProfileIcon";
+import { LuShoppingCart, LuUser } from "react-icons/lu";
 
 export default function Navbar() {
   const ref = React.useRef(null);
@@ -18,40 +16,51 @@ export default function Navbar() {
         <NavLink
           to="/"
           className={({ isActive }) =>
-            isActive
-              ? "text-[#EA580C] font-medium"
-              : "text-gray-600 hover:text-[#EA580C]"
+            `transition-all duration-300 ease-out
+            hover:text-[#EA580C]
+            hover:-translate-y-1
+            active:translate-y-0
+            ${isActive ? "text-[#EA580C] font-medium" : "text-gray-600"}`
           }
         >
           Shop
         </NavLink>
         <NavLink
-          to="/categories"
-          className={({ isActive }) =>
-            isActive
-              ? "text-[#EA580C] font-medium"
-              : "text-gray-600 hover:text-[#EA580C]"
-          }
-        >
-          Categories
-        </NavLink>
-        <NavLink
           to="/products"
           className={({ isActive }) =>
-            isActive
-              ? "text-[#EA580C] font-medium"
-              : "text-gray-600 hover:text-[#EA580C]"
+            `transition-all duration-300 ease-out
+              hover:text-[#EA580C]
+              hover:-translate-y-1
+              active:translate-y-0
+              ${isActive ? "text-[#EA580C] font-medium" : "text-gray-600"}`
           }
         >
           Products
         </NavLink>
-      </div>
-      <div>
-        <Input
-          placeholder="Search Product"
-          ref={ref}
-          className="placeholder:text-[#88726B] w-100 active:border-[#FFDBCE] outline-none focus:ring-[#FFDBCE] focus:border-[#D85A30] h-10"
-        />
+        <NavLink
+          to="/about"
+          className={({ isActive }) =>
+            `transition-all duration-300 ease-out
+            hover:text-[#EA580C]
+            hover:-translate-y-1
+            active:translate-y-0
+            ${isActive ? "text-[#EA580C] font-medium" : "text-gray-600"}`
+          }
+        >
+          About
+        </NavLink>
+        <NavLink
+          to="/contact"
+          className={({ isActive }) =>
+            `transition-all duration-300 ease-out
+            hover:text-[#EA580C]
+            hover:-translate-y-1
+            active:translate-y-0
+            ${isActive ? "text-[#EA580C] font-medium" : "text-gray-600"}`
+          }
+        >
+          Contact
+        </NavLink>
       </div>
       {isAuthenticated ? (
         <div className="flex gap-6">
@@ -63,38 +72,57 @@ export default function Navbar() {
                 : "text-gray-600 hover:text-[#EA580C]"
             }
           >
-           <ShoppingCartIcon size={24} color="#EA580C" /> 
+            <LuShoppingCart size={24} />
           </NavLink>
           <NavLink
-            to="/cart"
+            to="/profile"
             className={({ isActive }) =>
               isActive
                 ? "text-[#EA580C] font-medium"
                 : "text-gray-600 hover:text-[#EA580C]"
             }
           >
-           <ProfileIcon size={24} color="#EA580C" />
+            <LuUser size={24} />
           </NavLink>
         </div>
       ) : (
         <div className="flex gap-6">
           <NavLink
             to="/login"
-            className={({ isActive }) =>
-              isActive
-                ? "text-[#EA580C] font-medium"
-                : "text-gray-600 hover:text-[#EA580C]"
-            }
+            className={` 
+                bg-white/50
+                px-4 py-2
+                rounded
+                whitespace-nowrap
+                font-semibold
+                text-gray-600
+
+                transition-all duration-300 ease-out
+                hover:text-[#EA580C]
+                hover:-translate-y-1
+                hover:shadow-md
+                hover:bg-[#EA580C]/5
+                active:translate-y-0
+              `}
           >
             login
           </NavLink>
           <NavLink
             to="/register"
-            className={({ isActive }) =>
-              isActive
-                ? "text-[#EA580C] font-medium"
-                : "text-gray-600 hover:text-[#EA580C]"
-            }
+            className={` 
+                  bg-white/50
+                  px-4 py-2
+                  rounded
+                  whitespace-nowrap
+                  font-semibold
+                  text-gray-600
+
+                  transition-all duration-300 ease-out
+                  hover:text-[#EA580C]
+                  hover:-translate-y-1
+                  hover:shadow-md
+                  hover:bg-[#EA580C]/5
+                  active:translate-y-0`}
           >
             Sign Up
           </NavLink>

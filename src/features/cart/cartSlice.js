@@ -17,9 +17,9 @@ const cartSlice = createSlice({
         (item) => item.product === newItem.product,
       );
       if (existingItem) {
-        existingItem.qty += Math.min(
+        existingItem.qty = Math.min(
           existingItem.qty + newItem.qty,
-          existingItem.countInstock,
+          existingItem.countInStock,
         );
       } else {
         state.items.push(newItem);
@@ -37,7 +37,7 @@ const cartSlice = createSlice({
       const { product, qty } = action.payload;
       const item = state.items.find((item) => item.product === product);
       if (item) {
-        item.qty = Math.max(1, Math.min(qty, item.countInstock));
+        item.qty = Math.max(1, Math.min(qty, item.countInStock));
       }
       saveCart(state);
     },

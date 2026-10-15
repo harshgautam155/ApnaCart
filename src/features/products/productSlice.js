@@ -71,11 +71,11 @@ const productSlice = createSlice({
       .addCase(fetchProductDetails.pending, (state) => {
         state.detailsStatus = "loading";
         state.error = null;
+        state.product = null;
       })
       .addCase(fetchProductDetails.fulfilled, (state, action) => {
         state.detailsStatus = "succeeded";
-        state.product = action.payload.products
-         || action.payload;
+        state.product = action.payload.data || action.payload.product || action.payload.products || action.payload;
       })
       .addCase(fetchProductDetails.rejected, (state, action) => {
         state.detailsStatus = "failed";

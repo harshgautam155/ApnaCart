@@ -1,6 +1,6 @@
 import axiosInstance from "./axiosInstance";
 
-export const getAllProducts = () => axiosInstance.get("products");
+export const getAllProducts = (params) => axiosInstance.get("products", { params });
 export const getProductById = (id) => axiosInstance.get(`products/${id}`);
 export const createProductReview = (productId, data) => axiosInstance.post(`products/${productId}/reviews`, data);
 

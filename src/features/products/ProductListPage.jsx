@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { fetchProducts } from "./productSlice";
 import ProductCard from "./ProductCard";
 import Loader from "../../components/common/Loader";
+import ErrorMessage from "../../components/common/ErrorMessage";
 import { toast } from "react-toastify";
 
 function ProductListPage() {
@@ -13,7 +14,6 @@ function ProductListPage() {
   const keyword = searchParams.get("keyword");
 
   const { products, status, error } = useSelector((state) => state.products);
-  console.log("Products:", products); 
   useEffect(() => {
     dispatch(fetchProducts({ category, keyword }));
   }, [dispatch, category, keyword]);

@@ -41,7 +41,8 @@ function AdminProductForm() {
         });
         setImagePreview(product.image);
       } catch (error) {
-        toast.error("Failed to load product");
+        console.error("Failed to load product:", error);
+        toast.error("Failed to load product details");
         navigate("/admin/products");
       } finally {
         setFetching(false);

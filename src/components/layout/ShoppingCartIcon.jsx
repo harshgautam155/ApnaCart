@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 const ShoppingCartIcon = ({ size = 24, color = "currentColor", className = "", ...props }) => {
   return (
