@@ -1,5 +1,5 @@
 const conf = {
-    apiURL: String(import.meta.env.VITE_API_URL)
+    apiURL: String(import.meta.env.API_URL)
 }
 
 export default conf
