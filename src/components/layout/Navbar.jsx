@@ -1,12 +1,10 @@
-import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { useAuth } from "../../hooks/useAuth";
 import { LuShoppingCart, LuUser } from "react-icons/lu";
 
 export default function Navbar() {
-  const ref = React.useRef(null);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, checked } = useAuth();
   return (
     <nav className="flex items-center  justify-between px-6 py-5 shadow-sm">
       <Link to="/" className="text-3xl">
@@ -62,7 +60,7 @@ export default function Navbar() {
           Contact
         </NavLink>
       </div>
-      {isAuthenticated ? (
+      {!checked ? null : isAuthenticated ? (
         <div className="flex gap-6">
           <NavLink
             to="/cart"

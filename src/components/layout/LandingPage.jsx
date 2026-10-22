@@ -13,7 +13,7 @@ const categories = [
 ];
 
 function HomePage() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   return (
     <div style={{ backgroundColor: "#FDF1EC" }} className="text-[#1B2340]">
@@ -130,7 +130,7 @@ function HomePage() {
           </div>
           {isAuthenticated ? (
             <Link
-              to="/register"
+              to="/products"
               className="px-8 py-4 rounded font-semibold whitespace-nowrap"
               style={{ backgroundColor: "#D85A30", color: "#FDF1EC" }}
             >

@@ -217,9 +217,10 @@ const authSlice = createSlice({
         })
         .addCase(fetchMe.rejected, (state, action) => {
           state.status = "failed";
+          state.error = action.payload;
           state.user = null;
           state.isAuthenticated = false;
-          state.checked = true
+          state.checked = true;
         })
 
         //update 
